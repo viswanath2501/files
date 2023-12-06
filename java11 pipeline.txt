@@ -1,0 +1,127 @@
+pipeline with java11
+========================
+
+
+1.sudo su
+2.install jenkins 
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+    /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+    https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+    /etc/apt/sources.list.d/jenkins.list > /dev/null
+  
+sudo apt-get update
+  sudo apt-get install fontconfig openjdk-11-jre
+  sudo apt-get install jenkins
+   
+3.add port number 9000, 8080
+
+4.install docker 
+         sudo apt update
+         sudo apt install docker.io
+	 usermod -aG docker ubuntu
+	 newgrp docker
+	 chmod 777 /var/run/docker.sock
+	 docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
+	 docker ps
+
+5. in jenkins dashboard
+==========================
+
+install plugins
+	a)sonarqube-scanner
+	b)eclips tumurin
+goto=>manage jenkins=>credentials=>globel=>add credentials=>secret text=>id:sonar-token
+
+goto=>manage jenkins=>system=>add sonarqube=>name:sonar-server
+					     serverurl:<sonar dashboard url>
+					     authentication:sonar-token (apply & save)
+
+
+goto=>managejenkins=>tools=>add name:jdk11 (java.11.0.20)
+			        install from:install from adoptium.net (apply & save)
+
+goto=>managejenkins=>tools=>add sonarscanner name:sonar-scanner
+                                                  add 2.9 version (apply & save)
+
+
+goto=>managejenkins=>tools=>add maven name:maven3
+				install from 3.6.0 version  (apply & save)
+
+
+
+6.in sonar dashboard
+========================
+
+
+goto=>administration=> configuration=>wehooks=>createwebhook=>name:sonarqube-webhook
+					     url: <ip of jenkins with portnumber>/sonarqube-webhook
+
+
+7.now go to jenkins dashboard
+=================================
+
+create pipeline
+
+
+pipeline{
+    agent any
+    tools{
+        jdk 'jdk11'
+        maven 'maven3'
+    }
+    environment {
+        SCANNER_HOME=tool 'sonar-scanner'
+    }
+    stages{
+        stage('clean workspace'){
+            steps{
+                cleanWs()
+            }
+        }
+        stage('checkout scm'){
+            steps{
+                git branch: 'main', url: 'https://github.com/PARPSY1122/register-app.git'
+            }
+        }
+        stage('mvn compile'){
+            steps{
+                sh 'mvn clean compile'
+            }
+        }
+        
+        stage('mvn test'){
+            steps{
+                sh 'mvn test'
+            }
+        }
+        stage("Sonarqube Analysis "){
+            steps{
+                withSonarQubeEnv('sonar') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=sonarpipeline\
+                    -Dsonar.java.binaries=. \
+                    -Dsonar.projectKey=sonarpipeline'''
+                }
+            }
+        }
+        stage("quality gate"){
+            steps {
+                script {
+                  waitForQualityGate abortPipeline: false, credentialsId: 'sonar' 
+                }
+           }
+        }
+        stage ('Build war file'){
+            steps{
+                sh 'mvn clean install -DskipTests=true'
+            }
+        }
+       
+    }
+} 
+
+
+
+
+

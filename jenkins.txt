@@ -1,0 +1,28 @@
+
+Jenkins is a CI-CD Tool
+Ci-CD Contins intergration and continuos deployment
+Jenkins is automation tool
+
+This tool is called heart of devops
+jenkins default port is 8080
+JEnkins is server based automation tool
+Jenkins can integrate will all the devops tools
+
+
+We will create jobs in jobs in jenkins
+
+Jobs are of 2 types
+
+1.Freestyle Job-GUI
+
+2.Pipelines jobs-We use groovy scripts for running jobs
+
+Jenkins-plugins-External features adding to jenkins dashboard
+ 
+jenkins Build Tiggers polscm,webhoks,build periodacaly
+
+Home Directory of Jenkins is Var/lib/jenkins
+Installed Plugnins Var/lib/jenkins/plugins
+created job list Var/lib/jenkins/workspace & Jobs
+jenkins log infiormation Var/lib/jenkins/logs
+users list Var/lib/jenkins/users

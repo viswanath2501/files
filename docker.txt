@@ -1,0 +1,76 @@
+---
+- name: Install Docker.io
+  hosts: all
+  become: yes  # This allows the tasks to run as sudo/root user
+
+  tasks:
+    - name: Update APT package cache (for Debian/Ubuntu)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install required packages
+      package:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+      become: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Add Docker GPG key (for Debian/Ubuntu)
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+      when: ansible_os_family == "Debian"
+
+    - name: Add Docker repository (for Debian/Ubuntu)
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+      when: ansible_os_family == "Debian"
+
+    # CentOS/RHEL installation tasks
+    - name: Install required packages (for CentOS/RHEL)
+      yum:
+        name:
+          - yum-utils
+          - device-mapper-persistent-data
+          - lvm2
+      become: yes
+      when: ansible_os_family == "RedHat"
+
+    - name: Add Docker repository (for CentOS/RHEL)
+      yum_repository:
+        name: docker-ce
+        description: Docker CE Stable - $basearch
+        baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+        gpgcheck: yes
+        gpgkey: https://download.docker.com/linux/centos/gpg
+      when: ansible_os_family == "RedHat"
+
+    - name: Install Docker
+      yum:
+        name: docker-ce
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+      when: ansible_os_family == "RedHat"

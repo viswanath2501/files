@@ -1,0 +1,87 @@
+                       DOCKER
+Docker is a Containerisation Tool
+In Docker we build Containers
+With the help of Docker File we create Images , and with the help of Image we create containers
+In containers we run the Applications
+Docker image is created with Docker file or Docker hub
+Dcker hub is used to store images for future purpose
+
+
+1.For creating a container with the help of Image we use the command
+      docker run -itd --name -p imageid
+  we can create "N" number of containers wth one image
+
+2.To see How many containers are running we use the command
+                 docker ps
+
+3.If we want to see all the containers that are Stopped and Running , we use command
+                 docker ps-a
+
+4.If we want to see Docker Images we use the command
+                 docker images
+
+5.Docker containers is one kind of firewall (data stored in the form og Image), Data will be more secured
+
+6.To install Docker
+       apt -get install docker.io
+
+7.For changing the Hostname ( i.e Ip address)
+       hostnamectl set-hostname docker
+
+8.command to build Docker image from Docker file
+       dockerbuild.   (. is nothing but current path)
+
+9.For giving image name 
+       docker build -t imagename
+
+10.for pushing the image to docker hub for future purpose 
+       docker login
+       username:-
+       password:-
+
+11.command to push image to dockerhub
+       docker push imageid
+
+12.for seeing all volumes
+        docker volume ls
+
+13. To create a volume
+        docker volume create name
+
+14.Docker volumes - To retrieve the information of Deleted container when we Terminate, which was saved in Docker volume
+
+15. Docker execute command is used to Login into the container
+          docker exec -it containerid /bin/bash
+
+16.For docker home directory
+          cd/var/lib/docker
+
+17.To remove or delete a container 
+          docker rm-f containerid
+
+18.To retrieve the Deleted container data we use the command
+          docker run -itd --name -p -v :/data imageid
+
+19.Docker networks -
+   In docker networks , we can see IP addresses of containers
+          docker network ls
+
+20. To create new network
+          docker inspect network bridge
+       it lists containers Ip addresses
+
+21. To create own network
+          docker network create --driver bridge networkname
+
+22.Docker file components
+   1.from
+   2.Run
+   3.copy
+   4.Add
+   5.Expose
+   6.Workdir
+   7.Env
+   8.Cmd
+
+          
+

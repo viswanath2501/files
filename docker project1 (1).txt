@@ -1,0 +1,159 @@
+Launch 3 instances
+one instance for jenkins
+second instance for ansible
+third instance for docker
+
+
+[Jenkins instance]
+sudo su
+passwd root
+sudo apt-get update
+[install jenkins]
+
+[curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+    /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+  
+ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+    https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+    /etc/apt/sources.list.d/jenkins.list > /dev/null
+  
+
+  sudo apt-get update
+  sudo apt-get install fontconfig openjdk-11-jre
+  sudo apt-get install jenkins
+  sudo systemctl status jenkins]
+
+vi /etc/ssh/sshd_config
+service sshd start
+ssh-keygen
+service sshd restart
+ssh-copy-id ip address
+
+Steps:-
+ Login to the jenkins console
+ [Go to Jenkins dashboard]:-
+ Install plugin :- publish over Ssh
+ 
+ [Go to manage jenkins]:-
+ system-global tool configurations-add ssh configurations
+
+SSH Add :
+Name : Jenkins
+Hostname : jenkins ip address
+Username : root
+Advanced :
+Use password authentication, or use a different key :
+Passphrase / Password :  enter root user password 
+Test Configuration
+APPLY AND SAVE.
+
+SSH Add :
+Name : Ansible
+Hostname : Ansible ip address
+Username : root
+Advanced :
+Use password authentication, or use a different key :
+Passphrase / Password :  enter root user password 
+Test Configuration
+APPLY AND SAVE
+
+
+
+Create Jenkins job
+
+A) SOURCE CODE MANAGEMENT
+Repository : 
+Branches to build : */main
+
+B) BUILD STEPS
+Send files or execute commands over ssh:
+Name : jenkins
+Exec command : rsync -avh /var/lib/jenkins/workspace/docker-project/Dockerfile root@Ansible ip address:/opt
+
+C) BUILD STEPS
+Send files or execute commands over ssh:
+Name : Ansible
+Exec command:
+cd /opt
+
+docker image build -t $JOB_NAME:v1.$BUILD_ID .
+docker image tag $JOB_NAME:v1.$BUILD_ID vandu19/$JOB_NAME:v1.$BUILD_ID 
+docker image tag $JOB_NAME:v1.$BUILD_ID vandu19/$JOB_NAME:latest
+docker image push vandu19/$JOB_NAME:v1.$BUILD_ID
+docker image push vandu19/$JOB_NAME:latest
+docker image rmi $JOB_NAME:v1.$BUILD_ID vandu19/$JOB_NAME:v1.$BUILD_ID vandu19/$JOB_NAME:latest
+
+D) POST BUILD ACTIONS
+Send build artifacts over SSH:
+Exec command: ansible-playbook /opt/docker.yaml
+
+
+
+
+
+
+[ansible instances]
+sudo su
+passwd root
+sudo apt-get update
+[install ansible]
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt install ansible
+ansible --version
+vi /etc/ansible/hosts
+[dockerserver]
+172.31.6.244   [Enter dockerserver ip address]    
+
+[install docker]
+sudo apt-get install docker.io
+
+vi /etc/ssh/sshd_config
+service sshd start
+ssh-keygen
+service sshd restart
+ssh-copy-id ip address
+docker login 
+Enter dockerhub username and password 
+
+cd /opt
+vi docker.yaml
+
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: creating a docker container
+      shell: docker run -itd --name venky -p 9000:80 venky7287/docker-project
+
+
+
+
+ansible-playbook /opt/ansible.yml
+
+
+
+[docker instance]
+sudo su
+passwd root
+sudo apt-get update
+[install docker]
+sudo apt-get install docker.io 
+vi /etc/ssh/sshd_config
+
+service sshd start
+ssh-keygen
+service sshd restart
+ssh-copy-id ip address
+docker images
+docker ps
+
+
+
+#! /bin/bash
+
+sudo apt-add-repository ppa:ansible/ansible -y
+
+sudo apt update -y
+
+sudo apt install ansible -y
+

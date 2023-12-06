@@ -1,0 +1,124 @@
+FROM ubuntu:latest
+RUN apt-get -y update
+RUN apt-get install -y apache2 curl
+RUN apt-get install -y zip
+RUN apt-get install -y unzip
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page261/avlon.zip /var/www/html/
+WORKDIR /var/www/html
+RUN unzip avalon.zip
+RUN cp -rvf avalon/* .
+RUN rm -rf avalon avalon.zip
+ENTRYPOINT ["/usr/sbin/apache2ctl"]
+CMD ["-D", "FOREGROUND"]
+EXPOSE 80
+
+/home/ubuntu/apache-tomcat-9.0.79/webapps
+
+
+FROM ubuntu:latest
+RUN apt-get -y update
+RUN apt-get install -y apache2 curl
+RUN apt-get install -y zip
+RUN apt-get install -y unzip
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page294/namari.zip /var/www/html/
+WORKDIR /var/www/html
+RUN unzip namari.zip
+RUN cp -rvf namari/* .
+RUN rm -rf namari namari.zip
+ENTRYPOINT ["/usr/sbin/apache2ctl"]
+CMD ["-D", "FOREGROUND"]
+EXPOSE 80
+
+
+FROM ubuntu:latest
+RUN apt-get -y update
+RUN apt-get install -y apache2 curl
+RUN apt-get install -y zip
+RUN apt-get install -y unzip
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page289/foodfinda.zip /var/www/html/
+WORKDIR /var/www/html
+RUN unzip foodfinda.zip
+RUN cp -rvf html/* .
+RUN rm -rf html foodfinda.zip
+ENTRYPOINT ["/usr/sbin/apache2ctl"]
+CMD ["-D", "FOREGROUND"]
+EXPOSE 80
+
+
+docker run -itd --name microo -p 8011:80 
+
+
+https://www.free-css.com/assets/files/free-css-templates/download/page291/carserv.zip
+
+
+https://www.free-css.com/assets/files/free-css-templates/download/page294/namari.zip
+
+
+
+
+
+
+FROM ubuntu:latest
+WORKDIR /app
+RUN apt-get update && \
+    apt-get install -y git && \
+    git clone <repository_url> .
+RUN apt-get install -y <package_name>
+ENV MY_VARIABLE=value
+EXPOSE 80
+CMD ["<command_to_run_app>"]
+
+
+FROM ubuntu:latest
+RUN apt-get update
+RUN apt-get install apache2 git -y
+RUN git clone https://github.com/viswanath2501/vk.git
+ENTRYPOINT ["/usr/sbin/apache2ctl"]
+CMD ["apache2ctl","-D", "FOREGROUND"]
+EXPOSE 80
+
+
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install httpd git -y
+RUN git clone
+EXPOSE 80
+CMD ["apache2ctl", "-D", "FOREGROUND"]
+
+
+FROM ubuntu:latest
+RUN apt-get update
+RUN apt-get install -y apache2 git
+RUN git clone https://github.com/viswanath2501/vk.git
+WORKDIR /app/vk
+ENTRYPOINT ["/usr/sbin/apache2ctl"]
+CMD ["-D", "FOREGROUND"]
+EXPOSE 80
+
+
+
+
+
+FROM ubuntu:latest
+WORKDIR /app
+RUN apt-get update && apt-get install -y git
+RUN git clone https://github.com/viswanath2501/vk.git
+WORKDIR /app/vk
+CMD ["-D", "FOREGROUND"]
+EXPOSE 80
+
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y git
+RUN git clone https://github.com/username/repo.git
+WORKDIR /vk
+RUN make
+
+
+
+
+
+
+
+
+
+

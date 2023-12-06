@@ -1,0 +1,43 @@
+---
+- name: Install Tomcat
+  hosts: all
+  become: true
+  become_user: root
+  vars:
+   - TOMCAT9_URL: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.80/bin/apache-tomcat-9.0.80.tar.gz
+     ansible_python_interpreter: /usr/bin/python3.9  # Adjust to your Python interpreter path
+  tasks:
+    - name: Update repo and cache
+      yum:
+        name: "*"
+        state: latest
+    - name: Download Apache Tomcat archive
+      ansible.builtin.get_url:
+        url: "{{ TOMCAT9_URL }}"
+        dest: /tmp/apache-tomcat-9.0.80.tar.gz
+      become: yes
+    - name: Create directory /opt/venky if it doesn't exist
+      command: mkdir /opt/venky
+      args:
+        creates: /opt/venky
+      ignore_errors: yes
+    - name: Extract Apache Tomcat archive
+      ansible.builtin.unarchive:
+        src: /tmp/apache-tomcat-9.0.80.tar.gz
+        dest: /opt/venky
+        remote_src: yes
+        extra_opts: --strip-components=1
+      become: yes
+    - name: Start Tomcat
+      shell: /opt/venky/bin/startup.sh
+      ignore_errors: true
+    - name: Start and enable Tomcat service
+      systemd:
+        name: tomcat
+        host: local host
+        port: 8080
+        state: started
+        enabled: yes
+      become: yes
+      async: 600
+      poll: 0

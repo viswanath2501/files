@@ -1,0 +1,58 @@
+              GIT
+Git is a version controlled tool or system
+
+it is also called as source code management
+
+souce is nothing but main code
+
+Functionf of Git -
+Allows developers to work simultaneously
+does not allow overwriting each other changes
+Maintains history of every version
+Git is a client server Architecture
+
+1.Repository - It is nothing but a Folder in Git
+
+2.Cloning    - It is nothing but Remote repository
+ 
+3.Fork       - Moving the code from one Github account to another Github Account
+
+4.Local Repository - It is nothing but our Terminal , the place wher we are working
+
+5.Git push - It is nothing but Local to Remote
+
+6.Git pull - It is nothing but if we have made any changes ,then after that for pulling the code we use Git pull
+
+7.Four stages involved in Git
+  1.Working area (red colour)
+  2.Staging area (Green colour)
+  3.Local Repository
+  4.Remote Repository
+
+8.Git add (git add.) -File moving from Working area to Staging area
+
+9.Git commit (git commit-m) - what the changes we have done in code or files , have done by us i.e committed by us
+                                         i.e move changes from staging area to local
+
+10.Git clone- to add prject to our Terminal
+
+Git config - If we do git config , our github will be configured with that instance , then everytime we cannot give username and password
+               ( git config --global username)
+
+11. for creating a new branch
+      git branch "branchname"
+
+12.Git checkout - switching from one branch to other branch, and check it out in New branch
+
+13.Git merge - To merge all the changes from one branch to another branch
+
+14.Git branch - It is the command which shows in which branch we are working
+
+15.Git branch - to create a new branch (make sure you create new branch from the branch where original code is located)
+
+16.Git log - it will show all the committs done by us i.e committ id's
+
+17.Git reset - if we made changes in files , and then if we moved from working area to staging area...then if we dont want to made that
+               changes then we use the command git reset
+
+18.Git rm - we add a file from working area to staging area , then if we want delete that file we use 'gitrm' command

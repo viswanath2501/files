@@ -1,0 +1,97 @@
+Web server
+
+What is the Web server in AWS
+AWS provides a wide range of modern web hosting options for marketing,
+ blogs, landing pages, rich media, websites, ecommerce, and all types of web applications. 
+Amazon Lightsail is a streamlined way to launch and manage a web server using AWS
+
+ssh== SSH or Secure Shell is a network communication protocol that enables two computers to communicate
+ (c.f http or hypertext transfer protocol, 
+which is the protocol used to transfer hypertext such as web pages)
+ and share data.
+
+HTTP=Hypertext Transfer Protocol (HTTP) 
+is a method for encoding and transporting information 
+between a client (such as a web browser) and a web server. 
+HTTP is the primary protocol for transmission of information across the Internet.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                       CloudWatch
+
+
+Amazon CloudWatch monitors your Amazon Web Services (AWS) resources and the applications you run on AWS in real time.
+ You can use CloudWatch to collect and track metrics, which are variables you can measure for your resources and applications.
+
+The overview dashboard automatically displays metrics about every AWS service you use. The overview dashboard consists of the following section:
+
+
+
+
+alarms by AWS service
+Alarms by AWS service enables you to assess the health of your AWS services, by seeing the alarm states in every service.
+
+Amazon CloudWatch dashboards are customizable home pages in the CloudWatch console that you can use to monitor your resources in a single view, even those resources that are spread across different Regions. You can use CloudWatch dashboards to create customized views of the metrics and alarms for your AWS resources.
+
+Assess the health of your resources
+A single view for selected metrics and alarms to help you assess the health of your resources and applications across one or more regions.
+
+Customize your graphs
+You can select the color used for each metric on each graph, so that you can easily track the same metric across multiple graphs.
+
+Cross-Account Cross-Region
+You can create dashboards that display graphs and other widgets from multiple AWS accounts and multiple Regions. For more information, see Cross-Account Cross-Region CloudWatch Console. 
+
+Operational playbook
+An operational playbook that provides guidance for team members during operational events about how to respond to specific
+
+
+
+
+
+When was CloudWatch launched
+Out of more than 100 services that Amazon Web Services (AWS) provides, 
+Amazon CloudWatch was one of the earliest services provided by AWS. 
+CloudWatch was announced on May 17th, 2009, and it was the 7th service released after S3, SQS,  EBS, EC2
+
+----------------------------------------------------------------------------------------------
+What is the CloudWatch 
+Amazon CloudWatch is a monitoring and management service 
+that provides data and actionable insights for AWS, hybrid, 
+and on-premises applications and infrastructure resources
+-------------------------------------------------------------------------------------------
+
+Amazon CloudWatch monitors--- 
+your Amazon Web Services (AWS) resources and the applications you run on AWS in real time. 
+You can use CloudWatch to collect and track metrics, 
+which are variables you can measure for your resources and applications.
+-----------------------------------------------------------------------------------------------
+Customers use Amazon CloudWatch to collect and track metrics, 
+collect and monitor log files, set alarms, 
+and automatically react to changes in AWS resources. 
+CloudWatch provides system-wide visibility into resource utilization, 
+application performance, and operational health.
+-------------------------------------------------------------------------
+CPU utilization-- indicates the amount of load handled by individual processor 
+cores to run various programs on a computer. Definition
+------------------------------------------------------------------------
+What is AWS CloudWatch alarm
+Image result for aws cloudwatch alarms
+CloudWatch enables you to specify how to treat missing data points when evaluating an alarm. 
+This helps you to configure your alarm 
+so that it goes to ALARM state only when appropriate for the type of data being monitored. 
+You can avoid false positives when missing data doesn't indicate a problem
+
+-------------------------------------------------------------------------------------
+What is CloudWatch in AWS interview questions
+Amazon CloudWatch is a monitoring service for AWS cloud resources and the applications you run on AWS. 
+You can use Amazon CloudWatch to collect and track metrics, 
+collect and monitor log files, and set alarms.
+-------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+

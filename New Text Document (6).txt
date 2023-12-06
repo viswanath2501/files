@@ -1,0 +1,24 @@
+variable "AMI" {
+description="Amazon Machine Image Value"
+default="ami-0fe8bec493a81c7da"
+}
+variable "I_Type" {
+description="Amazon Instance Type"
+default = "t2.micro"
+}
+variable "I_Count" {
+description="Amazon Instance Count"
+default="3"
+}
+variable "I_Region" {
+description="Amazon Region"
+default="us-east-1"
+}
+variable "I_Akey" {
+description="Amazon Access Key"
+default="AKIASGCSZIN67DDWAIRD"
+}
+variable "I_Skey" {
+description="Amazon Secret Key"
+default="QWZ1Av4MdFPjFkZ0BNqWtKIgioYSGqc/CGNKIEsV"
+}

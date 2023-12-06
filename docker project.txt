@@ -1,0 +1,71 @@
+launch 3 instances
+one instance for jenkins
+second instance for ansible
+third instance for docker
+
+
+jenkins  
+sudo su
+passwd root
+sudo apt-get update
+[install jenkins]
+
+[curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+    /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+  
+ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+    https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+    /etc/apt/sources.list.d/jenkins.list > /dev/null
+  
+
+  sudo apt-get update
+  sudo apt-get install fontconfig openjdk-11-jre
+  sudo apt-get install jenkins
+  sudo systemctl status jenkins]
+
+vi /etc/ssh/sshd_config
+service sshd start
+ssh-keygen
+service sshd restart
+ssh-copy-id ip address
+
+[jenkins dashboard]
+install plugin :- publish over Ssh
+
+
+
+
+ansible
+sudo su
+passwd root
+sudo apt-get update
+[install ansible]
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt install ansible
+ansible --version
+
+[install docker]
+sudo apt-get install docker.io
+
+vi /etc/ssh/sshd_config
+service sshd start
+ssh-keygen
+service sshd restart
+ssh-copy-id ip address
+
+
+
+
+
+docker
+sudo su
+passwd root
+sudo apt-get update
+[install docker]
+sudo apt-get install docker.io 
+vi /etc/ssh/sshd_config
+
+service sshd start
+ssh-keygen
+service sshd restart
+

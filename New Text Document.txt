@@ -1,0 +1,142 @@
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+WORKDIR /src
+COPY ["PoojaStores.csproj" , "./"]
+RUN dotnet restore "PoojaStores.csproj"
+COPY . .
+RUN dotnet build "PoojaStores.csproj" -c Release -o /app/build
+FROM build as publish
+RUN dotnet publish "PoojaStores.csproj" -c Release -o /app/publish
+FROM base as final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "PoojaStores.dll"]
+
+
+
+# Stage 1: Build the application
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+WORKDIR /src
+
+# Copy the project file and restore dependencies
+COPY ["src/PoojaStores.csproj", "./"]
+RUN dotnet restore "PoojaStores.csproj"
+
+# Copy the source code and build the application
+COPY . .
+RUN dotnet build "PoojaStores.csproj" -c Release -o /app/build
+
+# Stage 2: Publish the application
+FROM build AS publish
+RUN dotnet publish "PoojaStores.csproj" -c Release -o /app/publish
+
+# Stage 3: Create the final image
+FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS final
+WORKDIR /app
+
+# Copy the published application from the "publish" stage
+COPY --from=publish /app/publish .
+
+# Set the entry point for the application
+ENTRYPOINT ["dotnet", "PoojaStores.dll"]
+
+
+pipeline {
+    agent any
+
+    environment {
+        DOCKERFILE_PATH = '/home/ubuntu/poojastores/ppojastores/trunk/PoojaStores'  // Path to your Dockerfile
+        DOCKER_IMAGE_NAME = 'your-docker-image-name'
+        DOCKER_REGISTRY_CREDENTIALS = 'your-docker-credentials' // The ID of Docker credentials in Jenkins
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Check out your source code from version control (e.g., Git)
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image using the Dockerfile
+                    docker.build(DOCKER_IMAGE_NAME, "-f ${DOCKERFILE_PATH} .")
+
+                    // Push the Docker image to a container registry (optional)
+                    docker.withRegistry('https://registry.example.com', DOCKER_REGISTRY_CREDENTIALS) {
+                        docker.image(DOCKER_IMAGE_NAME).push()
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+pipeline {
+    agent any
+
+    environment {
+        DOCKERFILE_PATH = '/home/ubuntu/poojastores/ppojastores/trunk/PoojaStores'
+        
+    }
+
+    stages {
+         stage('Clone Git repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Marolix2011/poojastores.git'
+            }
+        }
+        
+        stage('BuildDockerImage') {
+            steps {
+                sh 'docker build -t viswanath2501/doc:latest1 .'
+            }
+        }
+
+       stage('Dockerlogin') {
+            steps {
+                withCredentials([string(credentialsId: 'Dpwd', variable: 'Dpwd')]) {
+                sh 'docker login -u viswanath2501 -p ${Dpwd}'
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+pipeline {
+    agent any
+
+    environment {
+        DOCKERFILE_PATH = '/var/lib/jenkins/workspace/docker/ppojastores/trunk/PoojaStores'
+    }
+
+    stages {
+        stage('Clone Git repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Marolix2011/poojastores.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def dockerfilePath = "${DOCKERFILE_PATH}/Dockerfile"
+                    sh "docker build -t viswanath2501/doc:latest1 -f ${dockerfilePath} ."
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+docker push viswanath2501/doc:latest
